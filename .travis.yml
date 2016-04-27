@@ -1,0 +1,9 @@
+language: bash
+sudo: required
+
+before_install:
+  - git clone https://github.com/sstephenson/bats.git /tmp/bats
+  - (cd /tmp/bats && sudo ./install.sh /usr/local)
+
+script:
+  - make test

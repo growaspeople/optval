@@ -1,6 +1,8 @@
 optval
 =======
 
+[![Build Status](https://travis-ci.org/phanect/optval.svg?branch=master)](https://travis-ci.org/phanect/optval)
+
 Simplified getopt / getopts alternative
 
 **Currently work in progress**
