@@ -37,7 +37,9 @@ func main() {
   for i := 0; i < len(args); i++ {
     var _optName, value string
 
-    if (strings.Contains(args[i], "=")) { // --foo=bar style option
+    if (!strings.HasPrefix(args[i], "-")) { // if not option
+      continue
+    } else if (strings.Contains(args[i], "=")) { // --foo=bar style option
       var tmp = strings.Split(args[i], "=")
       _optName = tmp[0]
       value = tmp[1]

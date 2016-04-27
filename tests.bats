@@ -13,7 +13,7 @@ teardown() {
 @test "optval should receive option" {
   echo $(pwd)'/.built/optval "--opt1" -- "$@"' > "$TMP_SCRIPT"
 
-  result="$($TMP_SCRIPT arg1 arg2 --opt1 value1 --opt2=value2 -a shortoptval)"
+  result="$($TMP_SCRIPT arg1 --opt1 value1 --opt2=value2 -a shortoptval)"
 
   [ "$result" = "value1" ]
 }
