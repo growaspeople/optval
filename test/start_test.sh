@@ -7,4 +7,4 @@ go build -o ./.built/optval
 
 cd $(dirname ${BASH_SOURCE[0]})
 
-./target.sh arg1 arg2 --opt1 value1 -a shortoptval
+./target.sh arg1 arg2 --opt1 value1 --opt2=value2 -a shortoptval
