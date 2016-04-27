@@ -8,7 +8,9 @@ import (
 
 func main() {
   var optvalArgs []string = os.Args[1:] // First argument is skipped because it is program name
+  /** All arguments given to the command. (== $@) */
   args := []string{} // = strings.Split(optvalArgs[len(optvalArgs)-1], " ") // Last arg is arguments to analyze
+  /** Option names the user wants to get value */
   optNames := []string{} // = optvalArgs[:len(optvalArgs)-1] // Option names; e.g. --foo, -b
 
   //
