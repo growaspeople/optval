@@ -1,0 +1,7 @@
+Package: optval
+Version: 0.1-2
+Section: base
+Priority: optional
+Architecture: amd64
+Maintainer: Jumpei Ogawa <phanective@gmail.com>
+Description: Simplified getopt / getopts alternative
