@@ -19,10 +19,10 @@ e.g. Run following command:
 tetete.sh
 
 ```sh
-github_user=$(optval "--github-user" "$@")
+github_user=$(optval "--github-user" -- "$@")
 echo $github_user # phanect
 
-branch=$(optval "--branch" "-b" "$@")
+branch=$(optval "--branch" "-b" -- "$@")
 echo $branch # cloudsql
 
 args=$(optval --args)
