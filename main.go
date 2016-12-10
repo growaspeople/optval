@@ -1,62 +1,46 @@
 package main
 
 import (
-  "fmt"
   "os"
-  "strings"
 )
 
 func main() {
-  var optvalArgs []string = os.Args[1:] // First argument is skipped because it is program name
-  /** All arguments given to the command. (== $@) */
-  args := []string{} // = strings.Split(optvalArgs[len(optvalArgs)-1], " ") // Last arg is arguments to analyze
-  /** Option names the user wants to get value */
-  optNames := []string{} // = optvalArgs[:len(optvalArgs)-1] // Option names; e.g. --foo, -b
+  var optsArgs []string = os.Args[1:] // First argument is skipped because it is program name
 
-  //
-  // Analyze given arguments to optval
-  //
-  for i := 0; i < len(optvalArgs); i++ {
-    if optvalArgs[i] == "--" { // when reached to --
-      for j := i + 1; j < len(optvalArgs); j++ {
-        args = append(args, optvalArgs[j])
-      }
-
-      break
-    }
-
-    if strings.HasPrefix(optvalArgs[i], "-") {
-      optNames = append(optNames, optvalArgs[i])
-    } else {
-      fmt.Fprintln(os.Stderr, "Error: '%[1]d' is not option; options have to starts with - or --. Also check if you quote args to analyze: optval --foo \"$@\"", args[i])
-      os.Exit(1)
-    }
+  if len(optsArgs) <= 0 {
+    help(true)
   }
 
-  //
-  // Analyze options
-  //
-  for i := 0; i < len(args); i++ {
-    var _optName, value string
+  switch optsArgs[0] {
+    case "init":
+      initialize(optsArgs[1:])
+    case "def":
+      def(optsArgs[1:])
+    case "end":
+      end(optsArgs[1:])
+    case "--help":
+      help(false)
+    default:
+      help(true)
+  }
+}
 
-    if (!strings.HasPrefix(args[i], "-")) { // if not option
-      continue
-    } else if (strings.Contains(args[i], "=")) { // --foo=bar style option
-      var tmp = strings.Split(args[i], "=")
-      _optName = tmp[0]
-      value = tmp[1]
-    } else { // --foo bar style option
-      _optName = args[i]
-      value = args[i+1]
+func initialize(cliArgs []string) {
+  // TODO
+}
 
-      i++ // Skip next arg (== the option's value)
-    }
+func def(cliArgs []string) {
+  // TODO
+}
 
-    for _, optName := range(optNames) {
-      if optName == _optName {
-        os.Stdout.WriteString(value)
-        os.Exit(0)
-      }
-    }
+func end(cliArgs []string) {
+  // TODO
+}
+
+func help(isError bool) {
+  // TODO echo help
+
+  if isError == true {
+    os.Exit(1)
   }
 }
