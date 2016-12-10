@@ -5,4 +5,6 @@ build:
 .PHONY: test
 test:
 	$(MAKE) build
-	bats tests.bats
+	for test in tests/*.caller.sh; do
+		"$test"
+	done
