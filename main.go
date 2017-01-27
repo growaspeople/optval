@@ -1,6 +1,7 @@
 package main
 
 import (
+  "log"
   "os"
 )
 
@@ -35,6 +36,13 @@ func def(cliArgs []string) {
 
 func end(cliArgs []string) {
   // TODO
+}
+
+func catch(err error) {
+  if err != nil {
+    log.Fatal(err)
+    os.Exit(1)
+  }
 }
 
 func help(isError bool) {
