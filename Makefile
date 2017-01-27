@@ -1,6 +1,6 @@
 .PHONY: build
 build:
-	go build -o ./.built/optval
+	go build -o ./.built/opts
 
 .PHONY: test
 test:
