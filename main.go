@@ -2,6 +2,7 @@ package main
 
 import (
   "encoding/json"
+  "fmt"
   "io/ioutil"
   "log"
   "os"
@@ -9,6 +10,7 @@ import (
   "path"
   "path/filepath"
   "strconv"
+  "strings"
 )
 
 var jsonFile string
@@ -50,8 +52,32 @@ func initialize(cliArgs []string) {
   catch(err)
 }
 
-func def(cliArgs []string) {
-  // TODO
+func def(options []string) {
+  /** Value to return */
+  var value string
+
+  jsonByte, err := ioutil.ReadFile(jsonFile)
+  catch(err)
+
+  for _, option := range options {
+    var cliArgs []string
+    var index int
+
+    json.Unmarshal(jsonByte, &cliArgs)
+
+    //   TODO option が- 又は -- で始まらない場合、- が1つなのにその後に文字列が続いている場合、- が2つなのにその後に1文字しかない場合にエラー
+
+    index = indexOf(option, cliArgs)
+
+    if 0 <= index { // if option exists in cliArgs
+      if len(value) > 0 {
+        value = cliArgs[index + 1]
+        continue // Search next option to validate if both short and long options are not specified redundantly
+      } else { // value already assigned == short and long options are specified redundantly
+        die("Duplicate options: you can only specify one of " + strings.Join(options, ", "))
+      }
+    }
+  }
 }
 
 func end(cliArgs []string) {
@@ -65,10 +91,29 @@ func catch(err error) {
   }
 }
 
+func die(message string) {
+  fmt.Fprintln(os.Stderr, message)
+  os.Exit(1)
+}
+
 func help(isError bool) {
   // TODO echo help
 
   if isError == true {
     os.Exit(1)
   }
+}
+
+/**
+ * Get index of `search` in `array`
+ */
+func indexOf(search string, array []string) int {
+  for i, element := range array {
+    if search == element {
+      return i
+    }
+  }
+
+  // If there is no matching element
+  return -1
 }
